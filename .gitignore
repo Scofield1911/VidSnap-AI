@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+user_uploads/
+static/reels/
+done.txt
+.env
+.vscode/
