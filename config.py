@@ -1,1 +1,9 @@
-ELEVENLABS_API_KEY="sk_1016b51550b4ad14ef4d511c6fd8487e29545da4196d178b"
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# config.py
+ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY", "your_actual_api_key_here")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY").strip() if os.getenv("GEMINI_API_KEY") else None
+HF_TOKEN = os.getenv("HF_TOKEN")

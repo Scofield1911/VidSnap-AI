@@ -1,55 +1,54 @@
 {% extends "base.html" %}
 
-{% block title %}AI Reel Generator - Create Amazing Instagram Reels{% endblock %}
-
 {% block content %}
-<section class="hero-section">
-    <div class="container">
-        <h1 class="hero-title">Create Amazing Instagram Reels with AI</h1>
-        <p class="hero-subtitle">Transform your videos into engaging reels with our AI-powered platform</p>
-        <a href="/create" class="cta-button">Start Creating Now</a>
+<div class="max-w-3xl w-full text-center space-y-8 animate-fade-in-up">
+    
+    <div class="space-y-4">
+        <h1 class="text-6xl font-extrabold tracking-tight">
+            Turn Ideas into <br>
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
+                Viral Videos
+            </span>
+        </h1>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+            Generate engaging short videos with AI scripts, voiceovers, images, and music in seconds. Just type a topic.
+        </p>
     </div>
-</section>
 
-<section class="features-section">
-    <div class="container">
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <i class="fas fa-magic feature-icon"></i>
-                    <h3>AI-Powered Editing</h3>
-                    <p>Let our AI analyze and enhance your videos automatically</p>
-                </div>
+    <!-- Form -->
+    <div class="glass p-8 rounded-2xl shadow-2xl max-w-xl mx-auto mt-10">
+        <form action="/create" method="POST" class="space-y-6">
+            <div class="relative">
+                <input type="text" name="topic" placeholder="E.g., The Future of AI, History of Pizza..." 
+                       class="w-full bg-gray-800 border border-gray-700 rounded-xl px-6 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition placeholder-gray-500 text-white" required>
             </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <i class="fas fa-film feature-icon"></i>
-                    <h3>Smart Stitching</h3>
-                    <p>Seamlessly combine multiple clips into perfect reels</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <i class="fas fa-music feature-icon"></i>
-                    <h3>Music Integration</h3>
-                    <p>Add trending music and sound effects to your reels</p>
-                </div>
-            </div>
+            
+            <button type="submit" 
+                    class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold py-4 rounded-xl text-lg transition transform hover:scale-[1.02] shadow-lg">
+                ✨ Generate Video
+            </button>
+        </form>
+        <p class="text-xs text-gray-600 mt-4">Powered by Gemini 1.5 & ElevenLabs</p>
+    </div>
+
+    <!-- Features -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 text-left">
+        <div class="p-6 rounded-xl bg-gray-800/50 border border-gray-700/50">
+            <div class="text-3xl mb-3">📝</div>
+            <h3 class="font-bold text-lg mb-1">AI Scripting</h3>
+            <p class="text-gray-400 text-sm">Gemini crafts viral hooks and engaging scripts automatically.</p>
+        </div>
+        <div class="p-6 rounded-xl bg-gray-800/50 border border-gray-700/50">
+            <div class="text-3xl mb-3">🎨</div>
+            <h3 class="font-bold text-lg mb-1">AI Visuals</h3>
+            <p class="text-gray-400 text-sm">Zero-shot image generation perfectly matched to every scene.</p>
+        </div>
+        <div class="p-6 rounded-xl bg-gray-800/50 border border-gray-700/50">
+            <div class="text-3xl mb-3">🎙️</div>
+            <h3 class="font-bold text-lg mb-1">Ultra-Real Voice</h3>
+            <p class="text-gray-400 text-sm">ElevenLabs voice synthesis for professional narration.</p>
         </div>
     </div>
-</section>
 
-<section class="showcase-section">
-    <div class="container">
-        <h2 class="showcase-title">Featured Creations</h2>
-        <div class="image-grid">
-            <img src="{{ url_for('static', filename='1.jpg') }}" alt="Reel Example 1" class="showcase-image">
-            <img src="{{ url_for('static', filename='2.jpg') }}" alt="Reel Example 2" class="showcase-image">
-            <img src="{{ url_for('static', filename='3.jpg') }}" alt="Reel Example 3" class="showcase-image">
-            <img src="{{ url_for('static', filename='4.jpg') }}" alt="Reel Example 4" class="showcase-image">
-            <img src="{{ url_for('static', filename='5.jpg') }}" alt="Reel Example 5" class="showcase-image">
-        </div>
-    </div>
-</section>
+</div>
 {% endblock %}
- 

@@ -1,2 +1,6 @@
 flask
 elevenlabs
+google-genai
+python-dotenv
+requests
+moviepy

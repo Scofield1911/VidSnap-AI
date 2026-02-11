@@ -1,18 +1,38 @@
 {% extends "base.html" %}
 
-{% block title %}Gallery - AI Reel Generator{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}">
-{% endblock %}
-
 {% block content %}
-<div class="container gallery-container">
-    <h1 class="gallery-title">Reel Gallery</h1>
-    <div class="gallery-grid">
+<div class="w-full max-w-6xl mx-auto">
+
+    <h1 class="text-4xl font-bold text-center mb-12">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">
+            Latest Creations
+        </span>
+    </h1>
+
+    {% if reels %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for reel in reels %}
-        <video src="/static/reels/{{ reel }}" controls></video>
+        <div class="glass p-4 rounded-2xl hover:bg-white/5 transition duration-300">
+            <video controls class="w-full rounded-xl shadow-lg border border-gray-700 aspect-[9/16] object-cover">
+                <source src="{{ url_for('static', filename='reels/' + reel) }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="mt-4 flex justify-between items-center px-2">
+                <span class="text-sm text-gray-400 truncate w-3/4">{{ reel }}</span>
+                <a href="{{ url_for('static', filename='reels/' + reel) }}" download
+                    class="text-blue-400 hover:text-blue-300 text-sm">Download</a>
+            </div>
+        </div>
         {% endfor %}
     </div>
+    {% else %}
+    <div class="text-center py-20">
+        <p class="text-2xl text-gray-500">No videos yet. Go create one!</p>
+        <a href="/" class="mt-8 inline-block bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-xl transition">
+            Create First Video
+        </a>
+    </div>
+    {% endif %}
+
 </div>
 {% endblock %}

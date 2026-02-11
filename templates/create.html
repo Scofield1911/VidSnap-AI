@@ -1,62 +1,53 @@
 {% extends "base.html" %}
 
-{% block title %}Create Reel - AI Reel Generator{% endblock %}
-
-{% block extra_css %} 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}">
-{% endblock %}
-
 {% block content %}
-<section class="upload-section">
-    <div class="container">
-        <div class="upload-container">
-            <h1 class="upload-title">Create Your Reel</h1>
-            <p class="upload-instructions">Upload your video files to create an amazing reel. You can upload multiple files.</p>
-            
-            <form action="/create"  enctype="multipart/form-data"   method="post" class="dropzone" id="myDropzone">
-                <div class="fallback">
-                    <div id="fileInputs">
-                        <div class="file-input-group">
-                            <input name="file1" type="file" class="file-input" />
-                            <input name="uuid", type="hidden" , value="{{myid}}">
-                            <button type="button" class="remove-file-btn" onclick="removeFileInput(this)" disabled>×</button>
-                        </div>
-                    </div>
-                    <button type="button" class="add-file-btn" onclick="addFileInput()">+ Add File</button>
-                </div>
-                
-                <div class="text-input-container">
-                    <textarea class="text-input" id="textInput" name="text" placeholder="Enter your text to be added as voice here..." rows="4"></textarea>
-                </div>
-                
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    Create Reel
-                </button>
-            </form>
+<div class="text-center space-y-8 animate-fade-in-up">
+
+    <div
+        class="glass p-12 rounded-3xl max-w-2xl mx-auto border border-blue-500/30 shadow-[0_0_50px_rgba(59,130,246,0.2)]">
+
+        <div class="mb-8 flex justify-center">
+            <div class="animate-spin rounded-full h-24 w-24 border-t-2 border-b-2 border-blue-400"></div>
         </div>
+
+        <h1 class="text-4xl font-bold mb-4">Cooking Up Your Video! 🍳</h1>
+        <p class="text-xl text-gray-300 mb-8">
+            Our AI agents are writing the script, generating images, and composing music.<br>
+            This usually takes <strong>1-2 minutes</strong>.
+        </p>
+
+        <div class="bg-gray-800/50 rounded-xl p-6 text-left space-y-3 mb-8 text-sm text-gray-400" id="status-box">
+            <p>✅ Topic Received</p>
+            <p>🔄 Generating Script (Gemini)...</p>
+            <p>🔄 Synthesizing Voice (ElevenLabs)...</p>
+            <p>🔄 Creating Visuals (Pollinations)...</p>
+            <p>🔄 Composing Music...</p>
+        </div>
+
+        <a href="/gallery"
+            class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-full transition transform hover:scale-105">
+            Check Gallery for Result
+        </a>
+
+        <p class="mt-4 text-xs text-gray-500">ID: {{ myid }}</p>
     </div>
-</section>
-{% endblock %}
 
-{% block extra_js %}
+</div>
+
 <script>
-    let fileCounter = 2; // Start from 2 since we already have file1
-
-    function addFileInput() {
-        const fileInputs = document.getElementById('fileInputs');
-        const newFileInput = document.createElement('div');
-        newFileInput.className = 'file-input-group';
-        newFileInput.innerHTML = `
-            <input name="file${fileCounter}" type="file" class="file-input" />
-            <button type="button" class="remove-file-btn" onclick="removeFileInput(this)">×</button>
-        `;
-        fileInputs.appendChild(newFileInput);
-        fileCounter++;
+    const checkStatus = () => {
+        const videoId = "{{ myid }}";
+        fetch(`/status/${videoId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'done') {
+                    window.location.href = "/gallery";
+                }
+            })
+            .catch(err => console.error(err));
     }
 
-    function removeFileInput(button) {
-        const fileInputGroup = button.parentElement;
-        fileInputGroup.remove();
-    }
+    // Check every 3 seconds
+    setInterval(checkStatus, 3000);
 </script>
-{% endblock %} 
+{% endblock %}
